@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -27,6 +28,8 @@ Task1:
 public class CherCherTest {
 
     WebDriver driver; // Declare our reference for the object
+    WebDriverWait wait;
+
 
     @BeforeMethod
 
@@ -66,7 +69,7 @@ public class CherCherTest {
         alertButton.click();
 
 
-        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait = new WebDriverWait(driver,10);
 
         wait.until(ExpectedConditions.alertIsPresent());
 
@@ -76,6 +79,44 @@ public class CherCherTest {
 
 
 
+
+
+
+
+
+
+    }
+
+    /*
+       Task2:
+    1. Go to https://chercher.tech/practice/explicit-wait-sample-selenium-webdriver
+    2. Click on "Enable button after 10 seconds"
+    3. Explicitly wait until the button is enabled
+    4. Then verify the button is enabled
+     */
+
+    @Test
+
+    public void buttonEnabledTest(){
+
+        driver.findElement(By.id("enable-button")).click();
+
+        wait = new WebDriverWait(driver,15);
+
+        WebElement disableButton = driver.findElement(By.id("disable"));
+
+        System.out.println("disableButton.isEnabled() = " + disableButton.isEnabled());
+
+
+        wait.until(ExpectedConditions.elementToBeClickable(disableButton));
+
+        System.out.println("disableButton.isEnabled() = " + disableButton.isEnabled());
+
+        Assert.assertTrue(disableButton.isEnabled());
+
+
+
+        disableButton.click();
 
 
 
